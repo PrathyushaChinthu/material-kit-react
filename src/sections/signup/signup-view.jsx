@@ -22,7 +22,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function LoginView() {
+export default function SignupView() {
   const theme = useTheme();
 
   const router = useRouter();
@@ -36,6 +36,8 @@ export default function LoginView() {
   const renderForm = (
     <>
       <Stack spacing={3}>
+        <TextField name="firstName" label="First name" />
+        <TextField name="lastName" label="Last name" />
         <TextField name="email" label="Email address" />
 
         <TextField
@@ -68,7 +70,7 @@ export default function LoginView() {
         color="inherit"
         onClick={handleClick}
       >
-        Login
+        Create an account
       </LoadingButton>
     </>
   );
@@ -99,13 +101,13 @@ export default function LoginView() {
             maxWidth: 420,
           }}
         >
-          <Typography variant="h4">Sign in to MicroFox</Typography>
+          <Typography variant="h4">Welcome to MicroFox</Typography>
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
-            Don’t have an account?
+            Already have an account?
             {/* <Link href="/signup-page"> */}
             <Button variant="text" color="primary">
-              Create an account
+              Sign in
             </Button>
             {/* </Link> */}
             {/* <Link variant="subtitle2" sx={{ ml: 0.5 }}>
