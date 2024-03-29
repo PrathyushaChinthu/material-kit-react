@@ -18,18 +18,23 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
-    title: 'product',
+    title: 'photo',
     path: '/products',
     icon: icon('ic_cart'),
   },
   {
-    title: 'blog',
+    title: 'post',
     path: '/blog',
     icon: icon('ic_blog'),
   },
   {
     title: 'login',
     path: '/login',
+    icon: icon('ic_lock'),
+  },
+  {
+    title: 'signup',
+    path: '/signup',
     icon: icon('ic_lock'),
   },
   {
