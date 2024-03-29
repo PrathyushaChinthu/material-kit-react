@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
+// import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -29,9 +29,9 @@ export default function LoginView() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = () => {
-    router.push('/dashboard');
-  };
+  // const handleClick = () => {
+  //   router.push('/dashboard');
+  // };
 
   const renderForm = (
     <>
@@ -59,8 +59,12 @@ export default function LoginView() {
           Forgot password?
         </Link>
       </Stack>
-
-      <LoadingButton
+      <Link href="/">
+        <Button variant="contained" color="primary" onClick={() => router.back()}>
+          Login
+        </Button>
+      </Link>
+      {/* <LoadingButton
         fullWidth
         size="large"
         type="submit"
@@ -69,7 +73,7 @@ export default function LoginView() {
         onClick={handleClick}
       >
         Login
-      </LoadingButton>
+      </LoadingButton> */}
     </>
   );
 
@@ -104,9 +108,14 @@ export default function LoginView() {
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
             Don’t have an account?
             {/* <Link href="/signup-page"> */}
-            <Button variant="text" color="primary">
+            <Link href="/signup">
+              <Button variant="text" color="primary" onClick={() => router.back()}>
+                Create an account
+              </Button>
+            </Link>
+            {/* <Button variant="text" color="primary">
               Create an account
-            </Button>
+            </Button> */}
             {/* </Link> */}
             {/* <Link variant="subtitle2" sx={{ ml: 0.5 }}>
               Get started
