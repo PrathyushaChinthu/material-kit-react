@@ -15,7 +15,8 @@ import TablePagination from '@mui/material/TablePagination';
 
 // import { users } from 'src/_mock/user';
 
-import axiosInstance from 'src/helpers/axios';
+// import axiosInstance from 'src/helpers/axios';
+import axios from 'axios';
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
@@ -87,7 +88,7 @@ export default function UserPage() {
 
   const handleChangeRowsPerPage = (event) => {
     setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 5));
   };
 
   const handleFilterByName = (event) => {
@@ -104,7 +105,7 @@ export default function UserPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const usersRes = await axiosInstance.get('/users');
+        const usersRes = await axios.get('https://jsonplaceholder.typicode.com/users');
         console.log(usersRes.data);
         setUsers(usersRes.data);
       } catch (error) {
@@ -114,6 +115,24 @@ export default function UserPage() {
     };
     fetchUsers();
   }, []);
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const usersRes = await axiosInstance.get('/users');
+  //       console.log(usersRes.data);
+  //       setUsers(usersRes.data);
+  //     } catch (error) {
+  //       if (error.response.status === 404) {
+  //         console.error('Users not found:', error);
+  //         // Handle 404 error (e.g., display a message to the user)
+  //       } else {
+  //         console.error('Error fetching users:', error);
+  //         // Handle other errors if needed
+  //       }
+  //     }
+  //   };
+  //   fetchUsers();
+  // }, []);
 
   // const notFound = !dataFiltered.length && !!filterName;
 
@@ -146,7 +165,10 @@ export default function UserPage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users.map((user) => (
+                {(rowsPerPage > 0
+                  ? users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  : users
+                ).map((user) => (
                   <TableRow key={user.id} hover>
                     <TableCell>{user.id}</TableCell>
                     <TableCell>{user.name}</TableCell>

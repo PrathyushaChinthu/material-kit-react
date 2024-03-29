@@ -18,10 +18,11 @@ import Iconify from 'src/components/iconify';
 
 export default function UserTableRow({
   selected,
+  id,
   name,
   avatarUrl,
-  company,
-  role,
+  username,
+  email,
   isVerified,
   status,
   handleClick,
@@ -52,9 +53,11 @@ export default function UserTableRow({
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{id}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{username}</TableCell>
+
+        <TableCell>{email}</TableCell>
 
         <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
 
@@ -95,11 +98,12 @@ export default function UserTableRow({
 
 UserTableRow.propTypes = {
   avatarUrl: PropTypes.any,
-  company: PropTypes.any,
+  id: PropTypes.any,
   handleClick: PropTypes.func,
   isVerified: PropTypes.any,
   name: PropTypes.any,
-  role: PropTypes.any,
+  email: PropTypes.any,
+  username: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
 };
