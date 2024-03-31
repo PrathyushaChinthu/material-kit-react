@@ -23,16 +23,16 @@ import { ColorPicker } from 'src/components/color-utils';
 export const SORT_OPTIONS = [
   { value: 'featured', label: 'Featured' },
   { value: 'newest', label: 'Newest' },
-  { value: 'priceDesc', label: 'Price: High-Low' },
-  { value: 'priceAsc', label: 'Price: Low-High' },
+  { value: 'idDesc', label: 'Price: High-Low' },
+  { value: 'idAsc', label: 'Price: Low-High' },
 ];
 export const GENDER_OPTIONS = ['Men', 'Women', 'Kids'];
 export const CATEGORY_OPTIONS = ['All', 'Shose', 'Apparel', 'Accessories'];
 export const RATING_OPTIONS = ['up4Star', 'up3Star', 'up2Star', 'up1Star'];
-export const PRICE_OPTIONS = [
-  { value: 'below', label: 'Below $25' },
-  { value: 'between', label: 'Between $25 - $75' },
-  { value: 'above', label: 'Above $75' },
+export const ID_OPTIONS = [
+  { value: 'below', label: 'Below 200' },
+  { value: 'between', label: 'Between 200 - 800' },
+  { value: 'above', label: 'Above 800' },
 ];
 export const COLOR_OPTIONS = [
   '#00AB55',
@@ -47,7 +47,7 @@ export const COLOR_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter }) {
+export default function PhotoFilters({ openFilter, onOpenFilter, onCloseFilter }) {
   const renderGender = (
     <Stack spacing={1}>
       <Typography variant="subtitle2">Gender</Typography>
@@ -87,7 +87,7 @@ export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter
     <Stack spacing={1}>
       <Typography variant="subtitle2">Price</Typography>
       <RadioGroup>
-        {PRICE_OPTIONS.map((item) => (
+        {ID_OPTIONS.map((item) => (
           <FormControlLabel
             key={item.value}
             value={item.value}
@@ -196,7 +196,7 @@ export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter
   );
 }
 
-ProductFilters.propTypes = {
+PhotoFilters.propTypes = {
   openFilter: PropTypes.bool,
   onOpenFilter: PropTypes.func,
   onCloseFilter: PropTypes.func,

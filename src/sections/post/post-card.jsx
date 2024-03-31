@@ -18,7 +18,7 @@ import SvgColor from 'src/components/svg-color';
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
-  const { cover, title, view, comment, share, author, createdAt } = post;
+  const { cover, id, userId, title, view, body, comment, share, createdAt } = post;
 
   const latestPostLarge = index === 0;
 
@@ -26,8 +26,8 @@ export default function PostCard({ post, index }) {
 
   const renderAvatar = (
     <Avatar
-      alt={author.name}
-      src={author.avatarUrl}
+      alt={post.id}
+      // src={author.avatarUrl}
       sx={{
         zIndex: 9,
         width: 32,
@@ -63,7 +63,13 @@ export default function PostCard({ post, index }) {
         }),
       }}
     >
-      {title}
+      id:{id}
+      <br />
+      userId:{userId}
+      <br />
+      title:{title}
+      <br />
+      body:{body}
     </Link>
   );
 

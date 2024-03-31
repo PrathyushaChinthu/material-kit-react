@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 
 // ----------------------------------------------------------------------
 
-const PRODUCT_NAME = [
+const PHOTO_NAME = [
   'Nike Air Force 1 NDESTRUKT',
   'Nike Space Hippie 04',
   'Nike Air Zoom Pegasus 37 A.I.R. Chaz Bear',
@@ -29,7 +29,7 @@ const PRODUCT_NAME = [
   'Nike React Art3mis',
   'Nike React Infinity Run Flyknit A.I.R. Chaz Bear',
 ];
-const PRODUCT_COLOR = [
+const PHOTO_COLOR = [
   '#00AB55',
   '#000000',
   '#FFFFFF',
@@ -42,23 +42,23 @@ const PRODUCT_COLOR = [
 
 // ----------------------------------------------------------------------
 
-export const products = [...Array(24)].map((_, index) => {
+export const photos = [...Array(24)].map((_, index) => {
   const setIndex = index + 1;
 
   return {
     id: faker.string.uuid(),
-    cover: `/assets/images/products/product_${setIndex}.jpg`,
-    name: PRODUCT_NAME[index],
+    cover: `/assets/images/photos/photo_${setIndex}.jpg`,
+    name: PHOTO_NAME[index],
     price: faker.number.int({ min: 4, max: 99, precision: 0.01 }),
     priceSale: setIndex % 3 ? null : faker.number.int({ min: 19, max: 29, precision: 0.01 }),
     colors:
-      (setIndex === 1 && PRODUCT_COLOR.slice(0, 2)) ||
-      (setIndex === 2 && PRODUCT_COLOR.slice(1, 3)) ||
-      (setIndex === 3 && PRODUCT_COLOR.slice(2, 4)) ||
-      (setIndex === 4 && PRODUCT_COLOR.slice(3, 6)) ||
-      (setIndex === 23 && PRODUCT_COLOR.slice(4, 6)) ||
-      (setIndex === 24 && PRODUCT_COLOR.slice(5, 6)) ||
-      PRODUCT_COLOR,
+      (setIndex === 1 && PHOTO_COLOR.slice(0, 2)) ||
+      (setIndex === 2 && PHOTO_COLOR.slice(1, 3)) ||
+      (setIndex === 3 && PHOTO_COLOR.slice(2, 4)) ||
+      (setIndex === 4 && PHOTO_COLOR.slice(3, 6)) ||
+      (setIndex === 23 && PHOTO_COLOR.slice(4, 6)) ||
+      (setIndex === 24 && PHOTO_COLOR.slice(5, 6)) ||
+      PHOTO_COLOR,
     status: sample(['sale', 'new', '', '']),
   };
 });
