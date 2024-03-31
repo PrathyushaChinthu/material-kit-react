@@ -66,7 +66,9 @@ UserTableToolbar.propTypes = {
   numSelected: PropTypes.number,
   filterName: PropTypes.string,
   onFilterName: PropTypes.func,
-}; // import PropTypes from 'prop-types';
+};
+
+// import PropTypes from 'prop-types';
 // import React, { useState } from 'react';
 
 // import Tooltip from '@mui/material/Tooltip';
