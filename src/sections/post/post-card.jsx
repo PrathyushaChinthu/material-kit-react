@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -14,19 +15,20 @@ import { fShortenNumber } from 'src/utils/format-number';
 import Iconify from 'src/components/iconify';
 import SvgColor from 'src/components/svg-color';
 
-// ----------------------------------------------------------------------
-
 export default function PostCard({ post, index }) {
   const { id, userId, title, view, body, comment, share, createdAt } = post;
+  const [showFullData, setShowFullData] = useState(false);
 
   const latestPostLarge = index === 0;
-
   const latestPost = index === 1 || index === 2;
+
+  const handleTitleClick = () => {
+    setShowFullData(!showFullData);
+  };
 
   const renderAvatar = (
     <Avatar
       alt={post.id}
-      // src={author.avatarUrl}
       sx={{
         zIndex: 9,
         width: 32,
@@ -50,24 +52,40 @@ export default function PostCard({ post, index }) {
         padding: 2,
         backgroundColor: 'primary.main',
         borderRadius: 1,
-        height: 120, // Increase the height here
+        height: showFullData ? 'auto' : 120,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
+        cursor: 'pointer',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        position: 'relative',
       }}
+      onClick={handleTitleClick}
     >
-      <Typography variant="subtitle2" color="text.primary">
-        id: {id}
-      </Typography>
-      <Typography variant="subtitle2" color="text.primary">
-        userId: {userId}
-      </Typography>
-      <Typography variant="subtitle2" color="text.primary">
-        title: {title}
-      </Typography>
-      <Typography variant="subtitle2" color="text.primary">
-        body: {body}
-      </Typography>
+      {showFullData ? (
+        <>
+          <Typography variant="subtitle2" color="text.primary">
+            id: {id}
+          </Typography>
+          <Typography variant="subtitle2" color="text.primary">
+            userId: {userId}
+          </Typography>
+          <Typography variant="subtitle2" color="text.primary">
+            title: {title}
+          </Typography>
+          <Typography variant="body2" color="text.primary">
+            body: {body}
+          </Typography>
+          <Typography variant="caption" color="text.disabled">
+            createdAt: {fDate(createdAt)}
+          </Typography>
+        </>
+      ) : (
+        <Typography variant="subtitle2" color="text.primary">
+          {title}
+        </Typography>
+      )}
     </Box>
   );
 
@@ -164,7 +182,6 @@ export default function PostCard({ post, index }) {
           }}
         >
           {renderShape}
-
           {renderAvatar}
         </Box>
 
@@ -179,9 +196,7 @@ export default function PostCard({ post, index }) {
           }}
         >
           {renderTitle}
-
           {renderDate}
-
           {renderInfo}
         </Box>
       </Card>
@@ -193,10 +208,10 @@ PostCard.propTypes = {
   post: PropTypes.object.isRequired,
   index: PropTypes.number,
 };
+
 // import PropTypes from 'prop-types';
 
 // import Box from '@mui/material/Box';
-// // import Link from '@mui/material/Link';
 // import Card from '@mui/material/Card';
 // import Stack from '@mui/material/Stack';
 // import Avatar from '@mui/material/Avatar';
@@ -241,7 +256,17 @@ PostCard.propTypes = {
 //   );
 
 //   const renderTitle = (
-//     <Box sx={{ padding: 2, backgroundColor: 'primary.main', borderRadius: 1 }}>
+//     <Box
+//       sx={{
+//         padding: 2,
+//         backgroundColor: 'primary.main',
+//         borderRadius: 1,
+//         height: 120, // Increase the height here
+//         display: 'flex',
+//         flexDirection: 'column',
+//         justifyContent: 'space-around',
+//       }}
+//     >
 //       <Typography variant="subtitle2" color="text.primary">
 //         id: {id}
 //       </Typography>
@@ -325,7 +350,7 @@ PostCard.propTypes = {
 
 //   return (
 //     <Grid xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
-//       <Card sx={{ backgroundColor: 'background.default', borderRadius: 2 }}>
+//       <Card sx={{ backgroundColor: 'pink', borderRadius: 2 }}>
 //         <Box
 //           sx={{
 //             position: 'relative',
