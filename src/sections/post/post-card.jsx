@@ -18,7 +18,7 @@ import SvgColor from 'src/components/svg-color';
 
 export default function PostCard({ post, index }) {
   const { id, userId, title, view, body, comment, share, createdAt } = post;
-  // const { id, view, comment, share, createdAt } = post;
+
   const latestPostLarge = index === 0;
 
   const latestPost = index === 1 || index === 2;
@@ -50,7 +50,7 @@ export default function PostCard({ post, index }) {
         padding: 2,
         backgroundColor: 'primary.main',
         borderRadius: 1,
-        height: 240, // Increase the height here
+        height: 120, // Increase the height here
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
