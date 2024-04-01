@@ -16,9 +16,12 @@ export default function PhotosView() {
   const [openFilter, setOpenFilter] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [fetchingMore, setFetchingMore] = useState(false);
 
   useEffect(() => {
     const fetchPhotos = async () => {
+      setLoading(true);
       try {
         const photosRes = await axiosInstance.get('/photos', {
           params: { _limit: 10, _page: page },
@@ -26,6 +29,8 @@ export default function PhotosView() {
         setPhotos((prevPhotos) => [...prevPhotos, ...photosRes.data]);
       } catch (error) {
         console.error('Error fetching photos:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPhotos();
@@ -42,9 +47,11 @@ export default function PhotosView() {
   useEffect(() => {
     const handleScroll = () => {
       if (
+        !fetchingMore &&
         window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight * 0.9
+          document.documentElement.offsetHeight * 0.9
       ) {
+        setFetchingMore(true);
         setPage((prevPage) => prevPage + 1);
       }
     };
@@ -54,7 +61,25 @@ export default function PhotosView() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [fetchingMore]);
+
+  useEffect(() => {
+    if (fetchingMore) {
+      const fetchMorePhotos = async () => {
+        try {
+          const photosRes = await axiosInstance.get('/photos', {
+            params: { _limit: 10, _page: page },
+          });
+          setPhotos((prevPhotos) => [...prevPhotos, ...photosRes.data]);
+        } catch (error) {
+          console.error('Error fetching more photos:', error);
+        } finally {
+          setFetchingMore(false);
+        }
+      };
+      fetchMorePhotos();
+    }
+  }, [fetchingMore, page]);
 
   return (
     <Container>
@@ -83,10 +108,12 @@ export default function PhotosView() {
       <Grid container spacing={3}>
         {photos.map((photo) => (
           <Grid key={photo.id} xs={12} sm={6} md={3}>
-            <PhotoCard photo={photo.title} />
+            <PhotoCard photo={photo} />
           </Grid>
         ))}
       </Grid>
+
+      {loading && <Typography>Loading...</Typography>}
 
       <PhotoCartWidget />
     </Container>
