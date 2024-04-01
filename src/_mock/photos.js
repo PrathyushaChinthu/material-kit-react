@@ -1,5 +1,12 @@
+// import axios from 'axios';
 import { sample } from 'lodash';
 import { faker } from '@faker-js/faker';
+
+// const config = {
+//   baseURL: 'https://jsonplaceholder.typicode.com/photos',
+// };
+// const fetchPhotos = axios.create(config);
+// export default fetchPhotos;
 
 // ----------------------------------------------------------------------
 
