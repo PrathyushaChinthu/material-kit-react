@@ -25,6 +25,7 @@ export default function AppView() {
   const [totalPhotos, setTotalPhotos] = useState(0);
   const [totalPosts, setTotalPosts] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [chartData, setChartData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,6 +37,23 @@ export default function AppView() {
 
         const photosRes = await axiosInstance.get('/photos');
         setTotalPhotos(photosRes.data.length);
+
+        const postData = postsRes.data; // Assuming postData is in the format you need
+
+        // Calculate count of posts for each userId
+        const postCounts = {};
+        postData.forEach((post) => {
+          const userId = post.userId;
+          postCounts[userId] = (postCounts[userId] || 0) + 1;
+        });
+
+        // Convert postCounts to chart data format
+        const chartData = {
+          labels: Object.keys(postCounts).map((userId) => `userId:${userId}`),
+          series: Object.values(postCounts),
+        };
+
+        setChartData(chartData);
       } catch (error) {
         console.error('Error fetching photos:', error);
       }
@@ -132,18 +150,24 @@ export default function AppView() {
           <AppCurrentVisits
             title="Posts data"
             chart={{
-              series: [
-                { label: 'userId:1', value: 10 },
-                { label: 'userId:2', value: 10 },
-                { label: 'userId:3', value: 10 },
-                { label: 'userId:4', value: 10 },
-                { label: 'userId:5', value: 10 },
-                { label: 'userId:6', value: 10 },
-                { label: 'userId:7', value: 10 },
-                { label: 'userId:8', value: 10 },
-                { label: 'userId:9', value: 10 },
-                { label: 'userId:10', value: 10 },
-              ],
+              series: chartData
+                ? chartData.series.map((value, index) => ({
+                    label: chartData.labels[index],
+                    value,
+                  }))
+                : [],
+              // series: [
+              //   { label: 'userId:1', value: 10 },
+              //   { label: 'userId:2', value: 10 },
+              //   { label: 'userId:3', value: 10 },
+              //   { label: 'userId:4', value: 10 },
+              //   { label: 'userId:5', value: 10 },
+              //   { label: 'userId:6', value: 10 },
+              //   { label: 'userId:7', value: 10 },
+              //   { label: 'userId:8', value: 10 },
+              //   { label: 'userId:9', value: 10 },
+              //   { label: 'userId:10', value: 10 },
+              // ],
             }}
           />
         </Grid>
