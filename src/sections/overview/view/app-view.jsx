@@ -156,18 +156,6 @@ export default function AppView() {
                     value,
                   }))
                 : [],
-              // series: [
-              //   { label: 'userId:1', value: 10 },
-              //   { label: 'userId:2', value: 10 },
-              //   { label: 'userId:3', value: 10 },
-              //   { label: 'userId:4', value: 10 },
-              //   { label: 'userId:5', value: 10 },
-              //   { label: 'userId:6', value: 10 },
-              //   { label: 'userId:7', value: 10 },
-              //   { label: 'userId:8', value: 10 },
-              //   { label: 'userId:9', value: 10 },
-              //   { label: 'userId:10', value: 10 },
-              // ],
             }}
           />
         </Grid>
