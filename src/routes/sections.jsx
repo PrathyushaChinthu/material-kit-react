@@ -10,7 +10,7 @@ export const LoginPage = lazy(() => import('src/pages/login'));
 export const SignupPage = lazy(() => import('src/pages/signup'));
 export const PhotosPage = lazy(() => import('src/pages/photos'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
-
+export const UserProfile = lazy(() => import('src/pages/userProfile'));
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -25,7 +25,25 @@ export default function Router() {
       ),
       children: [
         { element: <IndexPage />, index: true },
-        { path: 'user', element: <UserPage /> },
+        {
+          path: 'user',
+          element: [
+            <Suspense>
+              <Outlet />
+            </Suspense>,
+          ],
+          children: [
+            {
+              index: true,
+              element: <UserPage />,
+            },
+            {
+              path: ':userId',
+              element: <UserProfile />,
+              exact: true,
+            },
+          ],
+        },
         { path: 'photos', element: <PhotosPage /> },
         { path: 'post', element: <PostPage /> },
       ],

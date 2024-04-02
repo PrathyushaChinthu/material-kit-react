@@ -1,8 +1,11 @@
 import { faker } from '@faker-js/faker';
+import React, { useState, useEffect } from 'react';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+
+import axiosInstance from 'src/helpers/axios';
 
 import Iconify from 'src/components/iconify';
 
@@ -19,6 +22,27 @@ import AppConversionRates from '../app-conversion-rates';
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  const [totalPhotos, setTotalPhotos] = useState(0);
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const usersRes = await axiosInstance.get('/users');
+        setTotalUsers(usersRes.data.length);
+
+        const postsRes = await axiosInstance.get('/posts');
+        setTotalPosts(postsRes.data.length);
+
+        const photosRes = await axiosInstance.get('/photos');
+        setTotalPhotos(photosRes.data.length);
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
@@ -37,8 +61,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="New Users"
-            total={1352831}
+            title="Users"
+            total={totalUsers}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           />
@@ -46,8 +70,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Item Orders"
-            total={1723315}
+            title="Photos"
+            total={totalPhotos}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
@@ -55,8 +79,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Bug Reports"
-            total={234}
+            title="Posts"
+            total={totalPosts}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
           />
@@ -106,13 +130,19 @@ export default function AppView() {
 
         <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
-            title="Current Visits"
+            title="Posts data"
             chart={{
               series: [
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
+                { label: 'userId:1', value: 10 },
+                { label: 'userId:2', value: 10 },
+                { label: 'userId:3', value: 10 },
+                { label: 'userId:4', value: 10 },
+                { label: 'userId:5', value: 10 },
+                { label: 'userId:6', value: 10 },
+                { label: 'userId:7', value: 10 },
+                { label: 'userId:8', value: 10 },
+                { label: 'userId:9', value: 10 },
+                { label: 'userId:10', value: 10 },
               ],
             }}
           />
