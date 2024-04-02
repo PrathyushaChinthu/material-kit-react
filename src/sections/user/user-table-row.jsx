@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -37,7 +37,7 @@ export default function UserTableRow({
   const handleCloseMenu = () => {
     setOpen(null);
   };
-
+  const navigate = useNavigate();
   return (
     <>
       <TableRow
@@ -45,7 +45,7 @@ export default function UserTableRow({
         tabIndex={-1}
         role="checkbox"
         selected={selected}
-        // onClick={() => navigate(`/users/${id}`)}
+        onClick={() => navigate(`/user/${id}`)}
       >
         <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={handleClick} />

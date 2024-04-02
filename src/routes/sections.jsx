@@ -27,11 +27,11 @@ export default function Router() {
         { element: <IndexPage />, index: true },
         {
           path: 'user',
-          element: [
-            <Suspense>
-              <Outlet />
-            </Suspense>,
-          ],
+          // element: [
+          //   <Suspense>
+          //     <Outlet />
+          //   </Suspense>,
+          // ],
           children: [
             {
               index: true,
