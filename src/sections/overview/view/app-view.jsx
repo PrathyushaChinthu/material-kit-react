@@ -43,17 +43,17 @@ export default function AppView() {
         // Calculate count of posts for each userId
         const postCounts = {};
         postData.forEach((post) => {
-          const userId = post.userId;
+          const { userId } = post;
           postCounts[userId] = (postCounts[userId] || 0) + 1;
         });
 
         // Convert postCounts to chart data format
-        const chartData = {
+        const chartpieData = {
           labels: Object.keys(postCounts).map((userId) => `userId:${userId}`),
           series: Object.values(postCounts),
         };
 
-        setChartData(chartData);
+        setChartData(chartpieData);
       } catch (error) {
         console.error('Error fetching photos:', error);
       }

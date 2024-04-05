@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -10,14 +10,13 @@ import axiosInstance from 'src/helpers/axios';
 
 import Iconify from 'src/components/iconify';
 
+import usePostStore from './store';
 import PostCard from '../post-card';
 import PostSort from '../post-sort';
 import PostSearch from '../post-search';
 
 export default function PostView() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+  const { posts, setPosts, loading, setLoading } = usePostStore();
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
@@ -35,7 +34,7 @@ export default function PostView() {
       }
     };
     fetchPosts();
-  }, []);
+  }, [setLoading, setPosts]);
 
   return (
     <Container>

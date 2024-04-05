@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+// import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,6 +6,8 @@ import { listClasses } from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 
 import Iconify from 'src/components/iconify';
+
+import usePhotosStore from './view/store';
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +19,7 @@ const SORT_OPTIONS = [
 ];
 
 export default function ShopPhotoSort() {
-  const [open, setOpen] = useState(null);
+  const { open, setOpen } = usePhotosStore;
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
